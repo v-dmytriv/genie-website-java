@@ -54,10 +54,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set proper tag name for Docker image
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          
+          BRANCH_NAME_CORRECT=$(echo "$BRANCH_NAME" | sed 's|/|-|g')
+          
+          echo "TAG_NAME=$BRANCH_NAME_CORRECT" >> $GITHUB_ENV
+
       - name: Build Docker Image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:${{ github.ref_name }} --build-arg JAR_FILE=app/*.jar .
+          docker build -t ghcr.io/${{ github.repository }}:${{ env.TAG_NAME }} --build-arg JAR_FILE=app/*.jar .
 
       - name: Push Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+          docker push ghcr.io/${{ github.repository }}:${{ env.TAG_NAME }}
