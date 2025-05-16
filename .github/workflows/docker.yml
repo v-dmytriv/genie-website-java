@@ -1,7 +1,9 @@
 name: Main Branch CI/CD
 
 on:
-  push:
+  pull-request:
+    branches:
+      - main
 
 permissions:
   contents: read
