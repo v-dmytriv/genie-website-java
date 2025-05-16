@@ -1,4 +1,4 @@
-name: Main Branch CI/CD
+name: Main Branch CI/CD\
 
 on:
   pull-request:
@@ -61,10 +61,3 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-#      - name: Build and push Docker image
-#        uses: docker/build-push-action@v3
-#        with:
-#          context: .
-#          file: ./Dockerfile
-#          push: true
-#          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
