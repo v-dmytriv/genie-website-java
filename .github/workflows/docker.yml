@@ -30,6 +30,7 @@ jobs:
           path: target/*.jar
 
   build_docker:
+    needs: build-jar
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
